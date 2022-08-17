@@ -647,9 +647,9 @@ Some Examples:
 
 ## Advanced Templates
 
-TBD.
+### Handlebar rendering
 
-In short, you can use handlebar template strings to build even more complex
+You can use handlebar template strings to build even more complex
 values, e.g.
 
 ```
@@ -670,6 +670,21 @@ mgeneratejs '{"name": "{{faker.name.firstName()}}"}' -n 3
 {"name":"Damaris"}
 {"name":"Alexzander"}
 {"name":"Tiara"}
+```
+
+### Referencing generated values
+
+If you need to reference the same generated value multiple times in the same template, then you can use the `-c` flag to specify a context JSON object.  
+This will resolve to a variable that can then be referenced in the template JSON as needed, e.g.
+
+```
+mgeneratejs '{"name": {"$resolve":{"variable":"myVariable"}}, "nameAgain": {"$resolve":{"variable":"myVariable"}}}' -c '{"myVariable": "{{faker.name.firstName()}}"}' -n 3
+```
+
+```
+{"name":"Thelma","nameAgain":"Thelma"}
+{"name":"Christ","nameAgain":"Christ"}
+{"name":"Kaitlin","nameAgain":"Kaitlin"}
 ```
 
 ## Difference to mtools' mgenerate script

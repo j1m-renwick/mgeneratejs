@@ -49,6 +49,16 @@ var yargs = require('yargs')
     'generates 5 documents based on the' + ' given template file.\n'
   )
   .example(
+    'mgeneratejs template.json -c context.json -n 5 ',
+    'generates 5 documents based on the' +
+      ' given template and context files.\n'
+  )
+  .example(
+    'mgeneratejs \'{"templateName": {"$resolve":{"variable":"myTemplateName"}}}\' -c \'{"myTemplateName": "my great template"}\' -n 1 ',
+    'generates 1 document based on the given template and context files, replacing variable placeholder with context-calculated values.\n\n' +
+      'The context json is resolved using the same operators as the template json.\n'
+  )
+  .example(
     'mgeneratejs \'{"name": "$name", "emails": {"$array": {"of": "$email", ' +
       '"number": 3}}}\'',
     'generates 1 document based on the given' + ' JSON template.\n'

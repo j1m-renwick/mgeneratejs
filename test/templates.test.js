@@ -25,8 +25,8 @@ context('Templates', function() {
   it('should evaluate faker.js/choose.js contextual mapping', function() {
     var template = {
       name: 'bob',
-      slogan: { $recall: { variable: 'mySlogan' } },
-      same: { slogan: { $recall: { variable: 'mySlogan' } } }
+      slogan: { $resolve: { variable: 'mySlogan' } },
+      same: { slogan: { $resolve: { variable: 'mySlogan' } } }
     };
     var res = mgenerate(template, {
       mySlogan: '{{ faker.company.catchPhrase()}}'
@@ -40,8 +40,8 @@ context('Templates', function() {
   it('should evaluate object-based operator contextual mapping', function() {
     var template = {
       name: 'bob',
-      choice: { $recall: { variable: 'myChoice' } },
-      same: { choice: { $recall: { variable: 'myChoice' } } }
+      choice: { $resolve: { variable: 'myChoice' } },
+      same: { choice: { $resolve: { variable: 'myChoice' } } }
     };
     var res = mgenerate(template, {
       myChoice: { $choose: { from: ['ONE', 'TWO', 'THREE'] } }
@@ -55,8 +55,8 @@ context('Templates', function() {
   it('should gracefully fail bad contextual mapping', function() {
     var template = {
       name: 'bob',
-      invalid: { $recall: { variable: 'someUnsetVariable' } },
-      slogan: { $recall: { variable: 'mySlogan' } }
+      invalid: { $resolve: { variable: 'someUnsetVariable' } },
+      slogan: { $resolve: { variable: 'mySlogan' } }
     };
     var res = mgenerate(template, {
       mySlogan: '{{ faker.company.catchPhrase()}}'
