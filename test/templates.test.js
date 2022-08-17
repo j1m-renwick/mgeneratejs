@@ -22,7 +22,7 @@ context('Templates', function() {
     assert.ok(_.isString(res.result));
     assert.equal(res.result, '3');
   });
-  it('should evaluate contextual mapping', function() {
+  it('should evaluate faker.js/choose.js contextual mapping', function() {
     var template = {
       name: 'bob',
       slogan: { $recall: { variable: 'mySlogan' } },
@@ -34,6 +34,21 @@ context('Templates', function() {
     assert.ok(_.isString(res.slogan));
     assert.notEqual(res.slogan, '{{ faker.company.catchPhrase()}}');
     assert.equal(res.slogan, res.same.slogan);
+    assert.equal(res.name, 'bob');
+    assert.equal(Object.keys(res).length, 3);
+  });
+  it('should evaluate object-based operator contextual mapping', function() {
+    var template = {
+      name: 'bob',
+      choice: { $recall: { variable: 'myChoice' } },
+      same: { choice: { $recall: { variable: 'myChoice' } } }
+    };
+    var res = mgenerate(template, {
+      myChoice: { $choose: { from: ['ONE', 'TWO', 'THREE'] } }
+    });
+    assert.ok(_.isString(res.choice));
+    assert.ok(['ONE', 'TWO', 'THREE'].includes(res.choice));
+    assert.equal(res.choice, res.same.choice);
     assert.equal(res.name, 'bob');
     assert.equal(Object.keys(res).length, 3);
   });
