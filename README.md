@@ -141,6 +141,7 @@ mgeneratejs '{"ip_addresses": {"$array": {"of": "$ip", "number": {"$integer": {"
 
 #### Geospatial
 
+- [`$address`](#address): Returns a full address.
 - [`$coordinates`](#coordinates): Returns a pair of longitude/latitude coordinates.
 - [`$point`](#point): Returns a GeoJSON Point.
 - [`$linestring`](#linestring): Returns a GeoJSON LineString.
@@ -162,6 +163,19 @@ mgeneratejs '{"ip_addresses": {"$array": {"of": "$ip", "number": {"$integer": {"
 - [`$timestamp`](#timestamp): Returns a MongoDB Timestamp.
 
 ### All Built-in Operators in Alphabetical Order
+
+### `$address`
+
+Creates a full address for a random locale. The address may not necessarily make
+factual sense (e.g. country of Bulgaria but with a UK postcode).
+
+> **Example**
+>
+> ```
+> {"address": "$address"}
+> ```
+>
+> Returns a full locale-driven address, e.g. `{"address":"石中心62510号 Suite 371, 安海市, United States of America 496422"}`
 
 ### `$array`
 
