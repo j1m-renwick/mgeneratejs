@@ -105,7 +105,7 @@ if (process.stdin.isTTY) {
   template = _.startsWith(str, '{')
     ? parseTemplate(str)
     : parseTemplate(read(str, 'utf8'));
-  str = argv.dataContext;
+  str = argv.dataContext || '{}';
   templateContext = _.startsWith(str, '{')
     ? parseTemplate(str)
     : parseTemplate(read(str, 'utf8'));
