@@ -76,7 +76,9 @@ var yargs = require('yargs')
   .epilogue(
     'Most operators from https://chancejs.com are available. For information' +
       ' on the template format, check the documentation at' +
-      ' https://github.com/rueckstiess/mgeneratejs'
+      ' https://github.com/j1m-renwick/mgeneratejs.\n\n' +
+      'With great thanks to rueckstiess (https://github.com/rueckstiess), who wrote the vast majority of this library' +
+      ' and is probably an all-round good egg.'
   )
   .version()
   .strict()

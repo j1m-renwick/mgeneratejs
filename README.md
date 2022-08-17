@@ -9,12 +9,19 @@ template object. It offers both a command line script and a JavaScript API.
 npm install -g mgeneratejs
 ```
 
-## Install locally
+## Install and dev locally
 
 ```
-npm pack
 
-npm install --global mgeneratejs-0.5.1.tgz
+// to build and install the package:
+
+npm pack
+npm install --global mgeneratejs-<package_version>.tgz
+
+
+npm run fmt // fixes formatting violations
+
+npm run ci // checks formatting and runs unit tests
 
 ```
 
