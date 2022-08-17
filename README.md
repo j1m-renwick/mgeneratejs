@@ -47,6 +47,12 @@ You can also specify a JSON file instead of a JSON string:
 mgeneratejs template.json -n 5
 ```
 
+And pipe it to Mongo using a command like:
+
+```
+mongo myDatabase --eval "db.myCollection.save($(mgeneratejs templateFile.json -c contextFile.json -n 1))"
+```
+
 ## Template Syntax
 
 The input string or file must be valid JSON, with one exception: As a convenience, from version 0.3.0 onwards, it's ok to omit quotes around keys, so both these templates are equivalent:
