@@ -237,6 +237,13 @@ context('Operators', function() {
     });
   });
 
+  describe('$address', function() {
+    it('should return a string result', function() {
+      var res = mgenerate({ addy: '$address' });
+      assert.ok(_.isString(res.addy));
+    });
+  });
+
   describe('$coordinates', function() {
     it('should work with default bounds', function() {
       var res = mgenerate({ loc: '$coordinates' });
