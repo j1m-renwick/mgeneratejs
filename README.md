@@ -9,6 +9,15 @@ template object. It offers both a command line script and a JavaScript API.
 npm install -g mgeneratejs
 ```
 
+## Install locally
+
+```
+npm pack
+
+npm install --global mgeneratejs-0.5.1.tgz
+
+```
+
 ## Example
 
 ```
@@ -637,6 +646,16 @@ mgeneratejs '{"recipient": "{{chance.name()}} <{{chance.email()}}>"}' -n 3
 {"recipient":"Lora Jimenez <muwer@oma.qa>"}
 {"recipient":"Elnora Brewer <wisnowaz@vacpar.tg>"}
 {"recipient":"Howard Bryan <jo@vemoriw.sd>"}
+```
+
+```
+mgeneratejs '{"name": "{{faker.name.firstName()}}"}' -n 3
+```
+
+```
+{"name":"Damaris"}
+{"name":"Alexzander"}
+{"name":"Tiara"}
 ```
 
 ## Difference to mtools' mgenerate script
