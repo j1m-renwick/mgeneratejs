@@ -85,6 +85,116 @@ context('Operators', function() {
     });
   });
 
+  describe('$substitute', function() {
+    it('should replace the expression without resolving when not a handlebar expression', function() {
+      var res = mgenerate(
+        {
+          foo: {
+            $substitute: {
+              overrides: { someVariable: 'myValue' },
+              expression: '__someVariable__'
+            }
+          }
+        },
+        {}
+      );
+      assert.equal(res.foo, 'myValue');
+    });
+    it('should resolve the expression based on values from the context', function() {
+      var res = mgenerate(
+        {
+          foo: {
+            $substitute: {
+              overrides: { someOtherVariable: 'myOtherValue' },
+              expression: '{{faker.color.rgb({ prefix: "__someVariable__" })}}'
+            }
+          }
+        },
+        {
+          someVariable: '#'
+        }
+      );
+      assert.equal(res.foo[0], '#');
+    });
+    it('should resolve the expression based on values from the overrides object', function() {
+      var res = mgenerate(
+        {
+          foo: {
+            $substitute: {
+              overrides: { someVariable: '#' },
+              expression: '{{faker.color.rgb({ prefix: "__someVariable__" })}}'
+            }
+          }
+        },
+        {}
+      );
+      assert.equal(res.foo[0], '#');
+    });
+    it('should resolve the expression based on values from the context and the overrides object', function() {
+      var res = mgenerate(
+        {
+          foo: {
+            $substitute: {
+              overrides: { prefixVariable: '#' },
+              expression:
+                '{{faker.color.rgb({ prefix: "__prefixVariable__", casing: "__casingVariable__" })}}'
+            }
+          }
+        },
+        {
+          prefixVariable: 'someInvalidPrefix',
+          casingVariable: 'upper'
+        }
+      );
+      assert.equal(res.foo[0], '#');
+      assert.equal(res.foo.slice(1), res.foo.slice(1).toUpperCase());
+    });
+    it('should not change the expression if no matching context or overrides values', function() {
+      var res = mgenerate(
+        {
+          foo: {
+            $substitute: {
+              overrides: { someVariable: 'here' },
+              expression: '__variableHere__'
+            }
+          }
+        },
+        {
+          someOtherVariable: 'here'
+        }
+      );
+      assert.equal(res.foo, '__variableHere__');
+    });
+    it('should not change the expression if no matching context and no override object', function() {
+      var res = mgenerate(
+        { foo: { $substitute: { expression: '__variableHere__' } } },
+        {
+          someOtherVariable: 'here'
+        }
+      );
+      assert.equal(res.foo, '__variableHere__');
+    });
+    it('should work using the alias of $sub', function() {
+      var res = mgenerate(
+        {
+          foo: {
+            $sub: {
+              overrides: { prefixVariable: '#' },
+              expression:
+                '{{faker.color.rgb({ prefix: "__prefixVariable__", casing: "__casingVariable__" })}}'
+            }
+          }
+        },
+        {
+          prefixVariable: 'someInvalidPrefix',
+          casingVariable: 'upper'
+        }
+      );
+      assert.equal(res.foo[0], '#');
+      assert.equal(res.foo.slice(1), res.foo.slice(1).toUpperCase());
+    });
+  });
+
   describe('$pick', function() {
     it('should pick the correct element from an array', function() {
       var res = mgenerate({
