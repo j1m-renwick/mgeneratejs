@@ -39,6 +39,11 @@ var yargs = require('yargs')
     type: 'boolean',
     default: false
   })
+  .option('dataContext', {
+    alias: 'c',
+    describe: 'json string to be reused in template generation',
+    type: 'string'
+  })
   .example(
     'mgeneratejs -n 5 template.json',
     'generates 5 documents based on the' + ' given template file.\n'
@@ -78,6 +83,7 @@ if (process.stdin.isTTY) {
 
 var argv = yargs.argv;
 var template;
+var templateContext;
 var stringifyStream = argv.jsonArray
   ? eJSONStringifyStream('[\n  ', ',\n  ', '\n]\n')
   : eJSONStringifyStream('', '\n', '\n');
@@ -87,7 +93,7 @@ function generate() {
     if (count >= argv.number) {
       return this.emit('end');
     }
-    this.emit('data', mgenerate(template));
+    this.emit('data', mgenerate(template, templateContext));
     callback();
   })
     .pipe(stringifyStream)
@@ -97,6 +103,10 @@ function generate() {
 if (process.stdin.isTTY) {
   var str = argv._[0];
   template = _.startsWith(str, '{')
+    ? parseTemplate(str)
+    : parseTemplate(read(str, 'utf8'));
+  str = argv.dataContext;
+  templateContext = _.startsWith(str, '{')
     ? parseTemplate(str)
     : parseTemplate(read(str, 'utf8'));
   generate();
@@ -111,6 +121,7 @@ if (process.stdin.isTTY) {
   });
   process.stdin.on('end', function() {
     template = JSON.parse(template);
+    templateContext = JSON.parse(templateContext);
     generate();
   });
 }
