@@ -1,7 +1,7 @@
 {
   "name": "mgeneratejs",
   "description": "Generate rich random data based on a JSON template file.",
-  "version": "0.5.1",
+  "version": "1.0.0",
   "scripts": {
     "fmt": "prettier --write '**/*.{js,md}'",
     "check": "prettier --check '**/*.{js,md}'",
@@ -11,18 +11,18 @@
   "bin": {
     "mgeneratejs": "./bin/mgenerate.js"
   },
-  "homepage": "http://github.com/rueckstiess/mgeneratejs",
+  "homepage": "https://github.com/j1m-renwick/mgeneratejs",
   "repository": {
     "type": "git",
-    "url": "git://github.com/rueckstiess/mgeneratejs.git"
+    "url": "git://github.com/j1m-renwick/mgeneratejs.git"
   },
   "dependencies": {
     "bson": "^4.6.3",
     "chance": "^1.1.8",
     "event-stream": "^4.0.1",
-    "faker": "^3.1.0",
     "lodash": "^4.17.21",
     "mongodb-extended-json": "^1.11.1",
+    "@faker-js/faker": "^7.4.0",
     "yargs": "^17.4.1"
   },
   "devDependencies": {
