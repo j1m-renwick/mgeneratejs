@@ -81,7 +81,7 @@ context('Operators', function() {
           indexValue: {
             $indexOf: {
               value: 'sat',
-              from: ['the', 'cat', 'sat', 'on', 'the', 'mat']
+              from: ['my', 'cat', 'sat', 'on', 'the', 'mat']
             }
           }
         },
@@ -89,7 +89,21 @@ context('Operators', function() {
       );
       assert.equal(res.indexValue, 2);
     });
-    it('shouldn not generate index if value not found in the list', function() {
+    it('should resolve supplied value and return expected index if found in the list', function() {
+      var res = mgenerate(
+        {
+          indexValue: {
+            $indexOf: {
+              value: { $resolve: { variable: 'myVar' } },
+              from: ['my', 'cat', 'sat', 'on', 'the', 'mat']
+            }
+          }
+        },
+        { myVar: 'the' }
+      );
+      assert.equal(res.indexValue, 4);
+    });
+    it('should not generate index if value not found in the list', function() {
       var res = mgenerate(
         {
           indexValue: {
@@ -100,6 +114,21 @@ context('Operators', function() {
           }
         },
         {}
+      );
+      assert.equal(res.indexValue, null);
+    });
+
+    it('should not generate index if resolved value is not found in the list', function() {
+      var res = mgenerate(
+        {
+          indexValue: {
+            $indexOf: {
+              value: { $resolve: { variable: 'myVar' } },
+              from: ['the', 'cat', 'sat', 'on', 'the', 'mat']
+            }
+          }
+        },
+        { myVar: 'invalid' }
       );
       assert.equal(res.indexValue, null);
     });
