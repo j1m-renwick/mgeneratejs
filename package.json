@@ -1,5 +1,5 @@
 {
-  "name": "mgeneratejs",
+  "name": "@econsult/mgeneratejs",
   "description": "Generate rich random data based on a JSON template file.",
   "version": "1.0.0",
   "scripts": {
@@ -9,7 +9,7 @@
     "ci": "npm run check && npm test"
   },
   "bin": {
-    "mgeneratejs": "./bin/mgenerate.js"
+    "mgeneratejs": "bin/mgenerate.js"
   },
   "homepage": "https://github.com/j1m-renwick/mgeneratejs",
   "repository": {
@@ -35,5 +35,20 @@
   "license": "Apache-2.0",
   "precommit": [
     "check"
-  ]
+  ],
+  "bugs": {
+    "url": "https://github.com/j1m-renwick/mgeneratejs/issues"
+  },
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib",
+    "test": "test"
+  },
+  "keywords": [
+    "mongodb",
+    "generate",
+    "mock"
+  ],
+  "author": "Jim Renwick"
 }
