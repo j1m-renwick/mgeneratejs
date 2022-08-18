@@ -3,8 +3,34 @@ var operators = require('../lib/operators');
 var assert = require('assert');
 var _ = require('lodash');
 var bson = require('bson');
+var momentFn = require('moment').fn;
+var sinon = require('sinon');
 
 context('Operators', function() {
+  const sandbox = sinon.createSandbox();
+
+  afterEach(() => {
+    sandbox.restore();
+  });
+
+  describe('$age', function() {
+    it('should return the expected age value', function() {
+      var dobArg = '2000-11-13';
+      sandbox.stub(momentFn, 'diff');
+      momentFn.diff.withArgs(new Date(dobArg)).returns(123);
+
+      var res = mgenerate(
+        {
+          foo: {
+            $age: { dob: dobArg }
+          }
+        },
+        {}
+      );
+      assert.equal(res.foo, 123);
+    });
+  });
+
   describe('$inc', function() {
     beforeEach(function() {
       // reset the inc operator to start from scratch
@@ -148,6 +174,24 @@ context('Operators', function() {
       );
       assert.equal(res.foo[0], '#');
       assert.equal(res.foo.slice(1), res.foo.slice(1).toUpperCase());
+    });
+    it('should resolve the expression when it is an operator object instead of a string', function() {
+      var dobArg = '2000-11-13';
+      sandbox.stub(momentFn, 'diff');
+      momentFn.diff.withArgs(new Date(dobArg)).returns(123);
+
+      var res = mgenerate(
+        {
+          foo: {
+            $substitute: {
+              overrides: { dobVariable: dobArg },
+              expression: { $age: { dob: '__dobVariable__' } }
+            }
+          }
+        },
+        {}
+      );
+      assert.equal(res.foo, 123);
     });
     it('should not change the expression if no matching context or overrides values', function() {
       var res = mgenerate(

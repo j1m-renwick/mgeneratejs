@@ -207,6 +207,22 @@ _Options_
 >
 > Creates an array of 3 countries, e.g. `{"countries":["Czech Republic","Ireland","Argentina"]}`
 
+### `$age`
+
+Calculates the age in years based on the supplied date of birth in the form `YYYY-MM-DD`.
+
+_Options_
+
+- `dob` (required) the date of birth.
+
+> **Example**
+>
+> ```
+> {"ageInYears": {"$age": {"dob": "1999-11-21"}}}
+> ```
+>
+> Returns `{"ageInYears": "22"}` (as of 2022-08-18)
+
 ### `$binary`
 
 Returns a random MongoDB Binary value, optionally with a `length` and `subtype`.
@@ -637,7 +653,7 @@ Returns a resolved variable from the template context.
 > {"value": {"$resolve":{"variable":"myContextVariable"}}}
 > ```
 >
-> Returns `{"value": "aContextValue"}"`.
+> Returns `{"value": "aContextValue"}`.
 
 ### `$substitute`
 
@@ -654,9 +670,9 @@ are used before context object properties.
 >
 > ```
 > {"value": {"$substitute": {"overrides": {"myOverrideVariable": "Bob"}, "expression": "{{faker.name.fullName({ firstName: \"__myOverrideVariable__\" })}}"}}}
->
-> Returns `{"value": "Bob Smith"}"`.
 > ```
+>
+> Returns `{"value": "Bob Smith"}`.
 
 > **Example**
 >
@@ -664,9 +680,9 @@ are used before context object properties.
 >
 > ```
 > {"value": {"$substitute": {"overrides": {"myFirstNameVar": "Tom"}, "expression": "__myFirstNameVar__ __mySurnameVar__"}}}
->
-> Returns `{"value": "Tom Waites"}"`.
 > ```
+>
+> Returns `{"value": "Tom Waites"}`.
 
 > **Example**
 >
@@ -674,9 +690,17 @@ are used before context object properties.
 >
 > ```
 > {"value": {"$substitute": {"expression": "{{faker.name.fullName({ firstName: \"__contextVar__\" })}}"}}}
->
-> Returns `{"value": "Morgan Jones"}"`.
 > ```
+>
+> Returns `{"value": "Morgan Jones"}`.
+
+> **Example**
+>
+> ```
+> {"ageInYears": {"$substitute": {"overrides": {"myDobValue": "1990-11-21"}, "expression": {"$age":{"dob":"__myDobValue__"}}}}}
+> ```
+>
+> Returns `{"ageInYears": 31}`.
 
 ### `$timestamp`
 
