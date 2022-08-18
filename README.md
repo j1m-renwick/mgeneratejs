@@ -190,6 +190,22 @@ factual sense (e.g. country of Bulgaria but with a UK postcode).
 >
 > Returns a full locale-driven address, e.g. `{"address":"石中心62510号 Suite 371, 安海市, United States of America 496422"}`
 
+### `$age`
+
+Calculates the age in years based on the supplied date of birth in the form `YYYY-MM-DD`.
+
+_Options_
+
+- `dob` (required) the date of birth.
+
+> **Example**
+>
+> ```
+> {"ageInYears": {"$age": {"dob": "1999-11-21"}}}
+> ```
+>
+> Returns `{"ageInYears": "22"}` (as of 2022-08-18)
+
 ### `$array`
 
 Creates an array of values. Each new element is evaluated separately.
@@ -206,22 +222,6 @@ _Options_
 > ```
 >
 > Creates an array of 3 countries, e.g. `{"countries":["Czech Republic","Ireland","Argentina"]}`
-
-### `$age`
-
-Calculates the age in years based on the supplied date of birth in the form `YYYY-MM-DD`.
-
-_Options_
-
-- `dob` (required) the date of birth.
-
-> **Example**
->
-> ```
-> {"ageInYears": {"$age": {"dob": "1999-11-21"}}}
-> ```
->
-> Returns `{"ageInYears": "22"}` (as of 2022-08-18)
 
 ### `$binary`
 
