@@ -74,6 +74,37 @@ context('Operators', function() {
     });
   });
 
+  describe('$indexOf', function() {
+    it('should return expected index if found in the list', function() {
+      var res = mgenerate(
+        {
+          indexValue: {
+            $indexOf: {
+              value: 'sat',
+              from: ['the', 'cat', 'sat', 'on', 'the', 'mat']
+            }
+          }
+        },
+        {}
+      );
+      assert.equal(res.indexValue, 2);
+    });
+    it('shouldn not generate index if value not found in the list', function() {
+      var res = mgenerate(
+        {
+          indexValue: {
+            $indexOf: {
+              value: 'invalid',
+              from: ['the', 'cat', 'sat', 'on', 'the', 'mat']
+            }
+          }
+        },
+        {}
+      );
+      assert.equal(res.indexValue, null);
+    });
+  });
+
   describe('$missing', function() {
     it('should discard a $missing value', function() {
       var res = mgenerate({
