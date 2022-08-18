@@ -625,6 +625,59 @@ _Options_
 >
 > Returns `{"expr":{"$regex":"^ab+c$","$options":"i"}}`.
 
+### `$resolve`
+
+Returns a resolved variable from the template context.
+
+> **Example**
+>
+> For a context of `{"myContextVariable":"aContextValue"}}`
+>
+> ```
+> {"value": {"$resolve":{"variable":"myContextVariable"}}}
+> ```
+>
+> Returns `{"value": "aContextValue"}"`.
+
+### `$substitute`
+
+_Aliases_
+
+- `$sub`
+
+Substitutes variables in the form of `__myVariable__` into the supplied expression and resolves it. The `overrides` object properties
+are used before context object properties.
+
+> **Example**
+>
+> For a context of `{"myOverrideVariable":"Tom"}}`
+>
+> ```
+> {"value": {"$substitute": {"overrides": {"myOverrideVariable": "Bob"}, "expression": "{{faker.name.fullName({ firstName: \"__myOverrideVariable__\" })}}"}}}
+>
+> Returns `{"value": "Bob Smith"}"`.
+> ```
+
+> **Example**
+>
+> For a context of `{"mySurnameVar":"Waites"}}`
+>
+> ```
+> {"value": {"$substitute": {"overrides": {"myFirstNameVar": "Tom"}, "expression": "__myFirstNameVar__ __mySurnameVar__"}}}
+>
+> Returns `{"value": "Tom Waites"}"`.
+> ```
+
+> **Example**
+>
+> For a context of `{"contextVar":"Morgan"}}`
+>
+> ```
+> {"value": {"$substitute": {"expression": "{{faker.name.fullName({ firstName: \"__contextVar__\" })}}"}}}
+>
+> Returns `{"value": "Morgan Jones"}"`.
+> ```
+
 ### `$timestamp`
 
 Returns a MongoDB Timestamp object.
