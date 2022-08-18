@@ -782,7 +782,6 @@ You can chain expressions in the context and they will be resolved in the same w
 
 ```
 mgeneratejs '{"customerName": {"$resolve":{"variable":"contextVariable"}}}' -c '{"contextVariable": {"$substitute": {"overrides": {"myFirstNameVar": "Tom"}, "expression": "{{faker.name.fullName({ firstName: \"__myFirstNameVar__\" })}}"}}}'  -n 1
-
 ```
 
 ```
