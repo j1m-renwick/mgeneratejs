@@ -764,8 +764,8 @@ mgeneratejs '{"name": "{{faker.name.firstName()}}"}' -n 3
 
 ### Referencing generated values
 
-If you need to reference the same generated value multiple times in the same template, then you can use the `-c` flag to specify a context JSON object.  
-This will resolve to a variable that can then be referenced in the template JSON as needed, e.g.
+Use the `-c` flag to specify a map of variables for the template context, which will enable to reference the same generated value multiple times in the same template.  
+These will each be resolved to a variable that can then be referenced in the template JSON as needed, e.g.
 
 ```
 mgeneratejs '{"name": {"$resolve":{"variable":"myVariable"}}, "nameAgain": {"$resolve":{"variable":"myVariable"}}}' -c '{"myVariable": "{{faker.name.firstName()}}"}' -n 3
@@ -775,6 +775,20 @@ mgeneratejs '{"name": {"$resolve":{"variable":"myVariable"}}, "nameAgain": {"$re
 {"name":"Thelma","nameAgain":"Thelma"}
 {"name":"Christ","nameAgain":"Christ"}
 {"name":"Kaitlin","nameAgain":"Kaitlin"}
+```
+
+You can chain expressions in the context and they will be resolved in the same way as the template
+(illustrated by this complicated way of setting the context as `{"contextVariable": "{{faker.name.fullName({ firstName: 'Tom' })}}"}`)
+
+```
+mgeneratejs '{"customerName": {"$resolve":{"variable":"contextVariable"}}}' -c '{"contextVariable": {"$substitute": {"overrides": {"myFirstNameVar": "Tom"}, "expression": "{{faker.name.fullName({ firstName: \"__myFirstNameVar__\" })}}"}}}'  -n 1
+
+```
+
+```
+{"customerName":"Tom Becker MD"}
+{"customerName":"Tom Daugherty"}
+{"customerName":"Tom Mosciski"}
 ```
 
 ## Difference to mtools' mgenerate script
