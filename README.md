@@ -394,6 +394,31 @@ _Options_
 >
 > Assigns the numbers 0, 2, 4, 6, ... to subsequent objects.
 
+### `$indexOf`
+
+Finds the index of the given value in the given list.
+
+_Options_
+
+- `from` (mandatory) the array list to find the value in
+- `value` (mandatory) the value to lookup
+
+> **Example**
+>
+> ```
+> {
+>   "derivedIndex": {
+>     "$indexOf": {
+>       "from": ["vanilla", "chocolate", "lemon"],
+>       "value": "chocolate"
+>     }
+>   }
+> }
+>
+> ```
+>
+> Returns `{"derivedIndex": 1}`
+
 ### `$join`
 
 Takes an array `array` and a separator string `sep` and joins the elements
