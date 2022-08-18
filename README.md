@@ -47,10 +47,10 @@ You can also specify a JSON file instead of a JSON string:
 mgeneratejs template.json -n 5
 ```
 
-And pipe it to Mongo using a command like:
+And pipe it to Mongo using mongoimport:
 
 ```
-mongo myDatabase --eval "db.myCollection.save($(mgeneratejs templateFile.json -c contextFile.json -n 1))"
+mgeneratejs mongotemplate.json -c mongotemplatecontext.json -n 10 | mongoimport -c myCollection -d myDatabase
 ```
 
 ## Template Syntax

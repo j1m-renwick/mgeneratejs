@@ -117,7 +117,6 @@ context('Operators', function() {
       );
       assert.equal(res.indexValue, null);
     });
-
     it('should not generate index if resolved value is not found in the list', function() {
       var res = mgenerate(
         {
