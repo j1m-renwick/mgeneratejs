@@ -6,7 +6,7 @@ template object. It offers both a command line script and a JavaScript API.
 ## Installation
 
 ```
-npm install -g mgeneratejs
+npm install -g @econsult/mgeneratejs
 ```
 
 ## Install and dev locally
@@ -16,7 +16,7 @@ npm install -g mgeneratejs
 // to build and install the package:
 
 npm pack
-npm install --global mgeneratejs-<package_version>.tgz
+npm install --global econsult-mgeneratejs-<package_version>.tgz
 
 
 npm run fmt // fixes formatting violations
@@ -818,7 +818,7 @@ mgeneratejs '{"customerName": {"$resolve":{"variable":"contextVariable"}}}' -c '
 ## Difference to mtools' mgenerate script
 
 This is a JavaScript port from the [`mgenerate`][mgenerate-mtools] script in the
-[mtools][mtools] library (of which I am also the author). It is mostly backwards
+[mtools][mtools] library. It is mostly backwards
 compatible except for the following breaking changes:
 
 1. The "array" operator format is no longer supported, as it was confusing
@@ -837,6 +837,8 @@ the `Chance.js` library, and the extended template syntax with handlebar templat
 ## License
 
 Apache 2.0
+
+With thanks to the original creator, [rueckstiess](https://github.com/rueckstiess).
 
 [mgenerate-mtools]: https://github.com/rueckstiess/mtools/wiki/mgenerate
 [array-syntax]: https://github.com/rueckstiess/mtools/wiki/mgenerate#parsing-the-json-document
