@@ -55,7 +55,7 @@ mgeneratejs mongotemplate.json -c mongotemplatecontext.json -n 10 | mongoimport 
 
 ## Template Syntax
 
-The input string or file must be valid JSON, with one exception: As a convenience, from version 0.3.0 onwards, it's ok to omit quotes around keys, so both these templates are equivalent:
+The input string or file must be valid JSON, with one exception: it's ok to omit quotes around keys, so both these templates are equivalent:
 
 ```
 {"name": "$name"}
@@ -785,6 +785,16 @@ mgeneratejs '{"name": "{{faker.name.firstName()}}"}' -n 3
 {"name":"Damaris"}
 {"name":"Alexzander"}
 {"name":"Tiara"}
+```
+
+You can also execute javascript by putting it between these braces:
+
+```
+mgeneratejs '{"value": "{{1+2+3}}"}'
+```
+
+```
+{"value":"6"}
 ```
 
 ### Referencing generated values

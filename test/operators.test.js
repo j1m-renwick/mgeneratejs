@@ -234,6 +234,23 @@ context('Operators', function() {
       assert.equal(res.foo[0], '#');
       assert.equal(res.foo.slice(1), res.foo.slice(1).toUpperCase());
     });
+    it('should resolve the expression based on values from the context and the overrides object when they are arrays', function() {
+      var res = mgenerate(
+        {
+          foo: {
+            $substitute: {
+              overrides: { arrayOverrideVariable: ['a', 'b', 'c'] },
+              expression:
+                '{{__arrayOverrideVariable__.length+__arrayContextVariable__.length}}'
+            }
+          }
+        },
+        {
+          arrayContextVariable: '["a","b","c","d","e","f"]'
+        }
+      );
+      assert.equal(res.foo, 9);
+    });
     it('should resolve the expression when it is an operator object instead of a string', function() {
       var dobArg = '2000-11-13';
       sandbox.stub(momentFn, 'diff');
