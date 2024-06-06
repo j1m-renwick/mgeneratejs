@@ -105,7 +105,7 @@ function generate() {
     if (count >= argv.number) {
       return this.emit('end');
     }
-    this.emit('data', mgenerate(template, templateContext));
+    this.emit('data', mgenerate(count, template, templateContext));
     callback();
   })
     .pipe(stringifyStream)

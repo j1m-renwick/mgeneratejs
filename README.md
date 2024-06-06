@@ -727,6 +727,23 @@ are used before context object properties.
 >
 > Returns `{"ageInYears": 31}`.
 
+**The current iteration count of the generator is available in the context as the variable `i` (zero-indexed)**.
+You can use access this using the substitution operator.
+
+> **Example**
+>
+> ```
+> {"value": {"$pick": {"array": ["green", "red", "blue"], "element": {"$substitute": {"expression": "__i__"}}}}}
+> ```
+>
+> Returns :
+>
+> `{"value": "green"}` in the 1st generated JSON,
+>
+> `{"value": "red"}` in the 2nd generated JSON,
+>
+> `{"value": "blue"}` in the 3rd generated JSON.
+
 ### `$timestamp`
 
 Returns a MongoDB Timestamp object.
